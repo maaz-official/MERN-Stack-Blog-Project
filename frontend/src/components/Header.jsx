@@ -1,53 +1,47 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FiSearch, FiSun, FiMoon } from 'react-icons/fi'; // Assuming you have imported icons from react-icons library
+import React from 'react';
+import { Search as SearchIcon, Brightness4, Brightness7 } from '@mui/icons-material';
 
 const Header = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    // You can implement logic here to toggle dark mode
+  // Placeholder function for theme toggle
+  const toggleTheme = () => {
+    console.log('Theme toggled');
   };
 
   return (
-    <header className="bg-gray-800 text-white py-3">
-      <div className="container mx-10 flex gap-20 items-center justify-between">
-        <Link to="/" className="text-2xl font-bold">
-          Lazzy Code
-        </Link>
-
-        <div className="flex items-center justify-center mt-4 md:mt-0 md:w-1/3">
+    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <div className="flex items-center">
+        <h1 className="text-xl font-bold">
+          <span className="text-red-500">L</span>
+          <span className="text-blue-500">a</span>
+          <span className="text-yellow-500">z</span>
+          <span className="text-green-500">z</span>
+          <span className="text-purple-500">y</span> 
+          <span className="text-pink-500">C</span>
+          <span className="text-indigo-500">o</span>
+          <span className="text-orange-500">d</span>
+          <span className="text-teal-500">e</span>
+        </h1>
+        <div className="ml-10 relative">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <SearchIcon style={{ color: "gray" }} />
+          </div>
           <input
-            type="text"
-            placeholder="Search"
-            className="px-6 py-2 w-100 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+            className="bg-gray-700 text-white pl-10 p-2 rounded-md"
+            placeholder="Search..."
           />
-          <button className="ml-2">
-            <FiSearch className="w-6 h-6" />
-          </button>
         </div>
-
-        <nav className="flex justify-end w-full md:w-auto mt-4 md:mt-0 md:ml-auto">
-          <Link to="/" className="hover:text-yellow-300">
-            Home
-          </Link>
-          <Link to="/about" className="hover:text-yellow-300 ml-4">
-            About
-          </Link>
-          <Link to="/projects" className="hover:text-yellow-300 ml-4">
-            Projects
-          </Link>
-        </nav>
-
-        <div className="flex gap-7 ms-auto items-center mt-4 md:mt-0">
-          <button onClick={toggleDarkMode} className="text-white hover:text-yellow-300">
-            {darkMode ? <FiMoon className="w-6 h-6" /> : <FiSun className="w-6 h-6" />}
-          </button>
-          <Link to="/signin" className="bg-green-500 text-white px-4 py-2 rounded-md ml-4 md:ml-0 hover:bg-yellow-600">
-            Sign In
-          </Link>
-        </div>
+      </div>
+      <nav>
+        <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+        <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+        <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+        <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">Pages</a>
+      </nav>
+      <div>
+        <button onClick={toggleTheme}>
+          <Brightness4 style={{ color: "white" }} />
+        </button>
+        <a href="#" className="ml-4 px-3 py-2 bg-gray-900 text-white rounded-md text-sm font-medium">Sign In</a>
       </div>
     </header>
   );
