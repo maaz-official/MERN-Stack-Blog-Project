@@ -1,61 +1,54 @@
 import React from 'react';
-import { Search as SearchIcon, Brightness4, Brightness7 } from '@mui/icons-material';
-import { Typography, Button } from '@mui/material';
+import { Link, useLocation } from 'react-router-dom';
+import { Button, Navbar, TextInput } from 'flowbite-react';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { FaMoon } from 'react-icons/fa';
 
-const Header = () => {
-    // Placeholder function for theme toggle
-    const toggleTheme = () => {
-      console.log('Theme toggled');
-    };
-  
-    return (
-      <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
-        <div className="flex items-center">
-          <Typography variant="h6">
-            <span className="text-red-500">L</span>
-            <span className="text-blue-500">a</span>
-            <span className="text-yellow-500">z</span>
-            <span className="text-green-500">z</span>
-            <span className="text-purple-500">y</span> 
-            <span className="text-pink-500">C</span>
-            <span className="text-indigo-500">o</span>
-            <span className="text-orange-500">d</span>
-            <span className="text-teal-500">e</span>
-          </Typography>
-          <div className="ml-10 relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <SearchIcon style={{ color: "gray" }} />
-            </div>
-            <input
-              className="bg-gray-700 text-white pl-10 p-2 rounded-md"
-              placeholder="Search..."
-            />
-          </div>
-        </div>
-        <nav>
-          <Typography variant="button">
-            <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-          </Typography>
-          <Typography variant="button">
-            <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
-          </Typography>
-          <Typography variant="button">
-            <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-          </Typography>
-          <Typography variant="button">
-            <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-medium">Pages</a>
-          </Typography>
-        </nav>
-        <div>
-          <Button onClick={toggleTheme}>
-            <Brightness4 style={{ color: "white" }} />
-          </Button>
-          <Typography variant="button">
-            <a href="#" className="ml-4 px-3 py-2 bg-gray-900 text-white rounded-md text-sm font-medium">Sign In</a>
-          </Typography>
-        </div>
-      </header>
-    );
-};
-
-export default Header; // Ensure default export
+export default function Header() {
+  const path = useLocation().pathname;
+  return (
+    <Navbar className='border-b-2 header'> {/* Added 'header' class */}
+      <Link to='/' className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
+        <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Lazzy</span>
+        Code
+      </Link>
+      <form>
+        <TextInput 
+          type='text'
+          placeholder='Search...'
+          rightIcon={AiOutlineSearch}
+          className='hidden lg:inline'
+        />
+      </form>
+      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+        <AiOutlineSearch />
+      </Button>
+      <div className='flex gap-2 md:order-2'> {/* Updated responsive classes */}
+        <Button className='w-12 h-10 hidden sm:inline' color='gray' pill>
+          <FaMoon />
+        </Button>
+        <Link to='/signin'>
+          <Button gradientDuoTone='purpleToBlue'>Sign In</Button>
+        </Link>
+        <Navbar.Toggle />
+      </div>
+      <Navbar.Collapse> {/* Collapsible Navbar section */}
+          <Navbar.Link active={path === '/' } as={'div'}>
+            <Link to='/'>
+              Home
+            </Link>
+          </Navbar.Link>
+          <Navbar.Link active={path === '/about'} as={'div'}>
+            <Link to='/about'>
+              About
+            </Link>
+          </Navbar.Link>
+          <Navbar.Link active={path === '/projects'} as={'div'}>
+            <Link to='/projects'>
+              Projects
+            </Link>
+          </Navbar.Link>
+        </Navbar.Collapse>
+    </Navbar>
+  );
+}

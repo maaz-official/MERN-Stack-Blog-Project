@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Header from "./components/Header";
+import './components.css';
 
 const App = () => {
   return (
