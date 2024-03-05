@@ -5,6 +5,7 @@
   <img src="https://github.com/maaz-official/MERN-Stack-Blog-Project/assets/161757387/eb2c05b7-d151-48f2-874d-e36549ced5b9" alt="Responsive Header" width="50%" />
 </div>
 
+# MERN Stack Blog Project Installation Details
 
 ```markdown
 
