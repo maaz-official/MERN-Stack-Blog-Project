@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import userRoutes from './routes/userRoute.js'
 
 // Load environment variables from .env file
 dotenv.config();
@@ -19,3 +20,5 @@ mongoose
 app.listen(3000, () => {
   console.log("Server is running at http://localhost:3000");
 });
+
+app.use('/api/user', userRoutes);
