@@ -1,7 +1,8 @@
 import User from "../models/userModel.js";
 import bcrypt from 'bcryptjs';
+import { errorHandler } from "../utils/error.js";
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     if (!email || !password || !username) {
@@ -11,7 +12,7 @@ export const signup = async (req, res) => {
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: "User already exists with that email." });
+            next(errorHandler(400, 'User already exists with that email.'));
         }
 
         // Hash the password before saving the user
@@ -38,6 +39,6 @@ export const signup = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error creating the user." });
+        next(error);
     }
 };
