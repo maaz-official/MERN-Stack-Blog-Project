@@ -4,9 +4,8 @@ import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
-
     if (!email || !password || !username) {
-        return res.status(400).json({ message: "Please provide username, email, and password." });
+        next(errorHandler(400, 'Please provide username, email, and password.'));
     }
 
     try {
