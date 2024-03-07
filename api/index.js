@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/userRoute.js';
 import authRoutes from './routes/authRoute.js';
 
-
 // Load environment variables from .env file
 dotenv.config();
 
@@ -21,13 +20,11 @@ mongoose
     console.error("MongoDB connection error:", error);
   });
 
-app.listen(3000, () => {
-  console.log("Server is running at http://localhost:3000");
-});
-
+// Define routes
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 
+// Error handling middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
@@ -36,4 +33,9 @@ app.use((err, req, res, next) => {
     statusCode,
     success: false
   });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
