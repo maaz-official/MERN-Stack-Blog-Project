@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button } from "flowbite-react"; // Assuming you're using Flowbite for styling
 import logo from "../assets/Logo/logo.png"; // Importing the logo image
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRequest, loginSuccess, loginFailure } from '../redux/user/userSlice.js';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // Define loading state
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Using useSelector to access Redux state
+  const errorMessage = useSelector(state => state.user.error);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -18,8 +23,10 @@ const SignIn = () => {
     if (!formData.email || !formData.password) {
       return setErrorMessage("Please fill in all the fields");
     }
-    setLoading(true);
+    setLoading(true); // Set loading state to true directly
     try {
+      dispatch(loginRequest());
+  
       const response = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
@@ -32,15 +39,17 @@ const SignIn = () => {
         throw new Error(data.message);
       }
       console.log("Signin successful");
-      // Redirect to dashboard or any other page after successful signin
+      dispatch(loginSuccess(data.user));
       navigate("/dashboard");
     } catch (error) {
       console.error("Error:", error);
+      dispatch(loginFailure(error.message));
       setErrorMessage(error.message);
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading state to false directly
     }
   };
+  
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row p-1">
