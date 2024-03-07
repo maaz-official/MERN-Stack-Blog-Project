@@ -4,9 +4,9 @@ import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
-    if (!email || !password || !username) {
-        next(errorHandler(400, 'Please provide username, email, and password.'));
-    }
+    if (!email || !password || !username || username === '' || email === '' || password === '') {
+        next(errorHandler(400, 'Invalide User havent  filled all fields'));
+    }    
 
     try {
         const existingUser = await User.findOne({ email });
@@ -28,7 +28,7 @@ export const signup = async (req, res, next) => {
         
         // Consider what user information to send back. Exclude sensitive data like password.
         res.status(201).json({
-            message: "Signup successful",
+            message: "User created and Signup successful",
             user: {
                 id: newUser._id,
                 username: newUser.username,
