@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
@@ -36,6 +37,53 @@ export const signup = async (req, res, next) => {
             }
         });
 
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+};
+
+export const signin = async (req, res, next) => {
+    const { email, password } = req.body;
+    if (!email || !password || email === '' || password === '') {
+        return next(errorHandler(400, 'Invalid credentials. Please provide email and password.'));
+    }
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return next(errorHandler(401, 'Invalid credentials. User not found.'));
+        }
+
+        // Compare the provided password with the hashed password stored in the database
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return next(errorHandler(401, 'Invalid credentials. Password incorrect.'));
+        }
+
+        // Generate JWT token
+        const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' } // Token expires in 1 day
+        );
+
+        // Set the token in a cookie
+        res.cookie('token', token, {
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // Cookie expires in 1 day
+            httpOnly: true, // Cookie is accessible only through the HTTP protocol
+            secure: process.env.NODE_ENV === 'production' // Set to true in production
+        });
+
+        // Send the response
+        res.status(200).json({
+            message: 'Signin successful',
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email
+            }
+        });
     } catch (error) {
         console.error(error);
         next(error);
