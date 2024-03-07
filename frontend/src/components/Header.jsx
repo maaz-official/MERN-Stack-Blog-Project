@@ -6,19 +6,19 @@ import { FaMoon } from "react-icons/fa";
 
 export default function Header() {
   const path = useLocation().pathname;
+
   return (
     <Navbar className="border-b-2 header">
       {" "}
-      {/* Added 'header' class */}
       <Link
         to="/"
         className="flex items-center font-serif text-3xl font-bold text-gray-800"
       >
-        <span className="text-yellow-500">L</span>
+        <span className="text-pink-500">L</span>
         <span>a</span>
-        <span className="text-red-500">z</span>
+        <span className="text-pink-500">z</span>
         <span>z</span>
-        <span className="text-green-500">y</span>
+        <span className="text-pink-500">y</span>
         <span className="ml-1">Code</span>
       </Link>
       <form>
