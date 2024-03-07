@@ -44,7 +44,7 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Logo and Description Side */}
-      <div className="md:w-1/2 lg:w-2/5 bg-gradient-to-br from-purple-600 to-pink-500 flex flex-col justify-center items-center px-5 py-10">
+      <div className="md:w-1/2 lg:w-2/5 bg-gradient-to-br from-purple-600 to-pink-500 flex flex-col justify-center items-center px-5 py-10 rounded-lg">
         <img
           src={logo}
           alt="Logo"
@@ -138,7 +138,7 @@ const SignUp = () => {
           </Button>
           <div className="text-center">
             <span className="text-gray-600">Already have an account?</span>
-            <Link to="/signin" className="text-blue-500 ml-1">
+            <Link to="/login" className="text-blue-500 ml-1">
               Login Here
             </Link>
           </div>

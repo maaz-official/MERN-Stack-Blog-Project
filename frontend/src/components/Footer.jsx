@@ -1,83 +1,83 @@
-import React from "react";
-import { Footer } from "flowbite-react"; // Importing Footer from Flowbite
-import { Link } from "react-router-dom";
-import { FaFacebook, FaTwitter, FaInstagram, FaGit } from "react-icons/fa";
-import logo from "../assets/Logo/logo.png";
+import { Footer } from 'flowbite-react';
+import { Link } from 'react-router-dom';
+import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsDribbble } from 'react-icons/bs';
 
-const CustomFooter = () => {
+export default function FooterCom() {
   return (
-    <Footer className="border border-t-8 border-teal-500 bg-white-800 text-gray py-8">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-wrap justify-between">
-          {/* Logo and About Section */}
-          <div className="w-full lg:w-1/4 mb-4 lg:mb-0">
-            <div className="flex items-center mb-4">
-              <img
-                src={logo}
-                alt="Logo"
-                className="w-12 h-12 mr-2 rounded-full"
-              />
-              <p className="text-lg font-semibold">About Us</p>
+    <footer className="footer mt-auto">
+      <Footer container className='border border-t-8 border-teal-500'>
+        <div className='w-full max-w-7xl mx-auto'>
+          <div className='grid w-full justify-between sm:flex md:grid-cols-1'>
+            <div className='mt-5'>
+              <Link
+                to='/'
+                className='self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white'
+              >
+                <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
+                  Lazzy
+                </span>
+                Code
+              </Link>
             </div>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              gravida turpis nec velit dictum, ut fermentum justo posuere.
-            </p>
-          </div>
-
-          {/* Follow Us Section */}
-          <div className="w-full lg:w-1/4 mb-4 lg:mb-0">
-            <p className="text-lg font-semibold mb-2">Follow Us</p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-black">
-                <FaFacebook />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-black">
-                <FaTwitter />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-black">
-                <FaInstagram />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-black">
-                <FaGit />
-              </a>
+            <div className='grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6'>
+              <div>
+                <Footer.Title title='About' />
+                <Footer.LinkGroup col>
+                  <Footer.Link
+                    href='https://www.Lazzycode.com'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Lazzy Code
+                  </Footer.Link>
+                  <Footer.Link
+                    href='/about'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Sahand's Blog
+                  </Footer.Link>
+                </Footer.LinkGroup>
+              </div>
+              <div>
+                <Footer.Title title='Follow us' />
+                <Footer.LinkGroup col>
+                  <Footer.Link
+                    href='https://www.github.com/maaz-official'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Github
+                  </Footer.Link>
+                  <Footer.Link href='#'>Discord</Footer.Link>
+                </Footer.LinkGroup>
+              </div>
+              <div>
+                <Footer.Title title='Legal' />
+                <Footer.LinkGroup col>
+                  <Footer.Link href='#'>Privacy Policy</Footer.Link>
+                  <Footer.Link href='#'>Terms &amp; Conditions</Footer.Link>
+                </Footer.LinkGroup>
+              </div>
             </div>
           </div>
-
-          {/* Legal Section */}
-          <div className="w-full lg:w-1/4 mb-4 lg:mb-0">
-            <p className="text-lg font-semibold mb-2">Legal</p>
-            <ul>
-              <li>
-                <Link to="/privacy" className="hover:text-gray-400">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms" className="hover:text-gray-400">
-                  Terms & Conditions
-                </Link>
-              </li>
-            </ul>
+          <Footer.Divider />
+          <div className='w-full sm:flex sm:items-center sm:justify-between'>
+            <Footer.Copyright
+              href='#'
+              by="Lazzy Code"
+              year={new Date().getFullYear()}
+            />
+            <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
+              <Footer.Icon href='#' icon={BsFacebook}/>
+              <Footer.Icon href='#' icon={BsInstagram}/>
+              <Footer.Icon href='#' icon={BsTwitter}/>
+              <Footer.Icon href='https://github.com/maaz-official' icon={BsGithub}/>
+              <Footer.Icon href='#' icon={BsDribbble}/>
+            </div>
           </div>
         </div>
-        <div className="mt-8 border-t-2 border-gray-700 pt-6 flex justify-between">
-          <p>&copy; {new Date().getFullYear()} All rights reserved by @Lazzy Code</p>
-          <div className="flex space-x-4">
-            <a href="#" className="text-gray-400 hover:text-black">
-              <FaFacebook />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-black">
-              <FaTwitter />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-black">
-              <FaInstagram />
-            </a>
-          </div>
-        </div>
-      </div>
-    </Footer>
+      </Footer>
+    </footer>
   );
-};
-
-export default CustomFooter;
+}
