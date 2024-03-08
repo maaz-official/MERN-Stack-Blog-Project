@@ -2,13 +2,15 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { Card } from 'flowbite-react';
+import { FaMoon, FaSun } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../redux/theme/themeSlice.js";
 
 export default function Header() {
   const path = useLocation().pathname;
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  const {theme} = useSelector((state) => state.theme); 
 
   return (
     <Navbar className="border-b-2 header">
@@ -38,8 +40,8 @@ export default function Header() {
       <div className="flex gap-2 md:order-2">
         {" "}
         {/* Updated responsive classes */}
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
-          <FaMoon />
+        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={()=>dispatch(toggleTheme())}>
+          {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
         {currentUser ? (
           <Dropdown
@@ -112,42 +114,3 @@ export default function Header() {
     </Navbar>
   );
 }
-
-// 🚀 Master React In 20 Days 🚀
-
-// Are you ready to level up your React skills? Join me on a 20-day journey to become a React master! Here's how we'll do it:
-
-// 📅 Day 1-5: Foundations
-
-// 📚 Dive into React fundamentals, including JSX, components, props, and state.
-// 🧱 Build small projects to solidify your understanding of React basics.
-
-// 🔧 Day 6-10: Advanced Concepts
-
-// 🔄 Explore advanced topics like hooks, context API, and lifecycle methods.
-// 🚀 Implement complex state management solutions using Redux or Context API.
-
-// 💻 Day 11-15: Project Time
-
-// 🛠️ Work on real-world projects to apply what you've learned.
-// 🌐 Build interactive web applications with React, integrating APIs and handling user inputs.
-
-// 🚀 Day 16-20: Optimization and Deployment
-
-// ⚙️ Learn optimization techniques to improve performance.
-// 🚀 Deploy your React applications to hosting services like Netlify or Vercel for the world to see.
-
-// By the end of this 20-day journey, you'll have the skills and confidence to tackle any React project that comes your way!
-
-// Let's embark on this exciting learning adventure together. Are you in?
-
-// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// Follow Saurabh Pandey For More ✨
-// Follow Saurabh Pandey For More ✨
-
-// For Job Opportunities & Resources ✨
-// Join Our Network Link In Comments 💬
-
-// Source :- Thanks To BossCoder Academy ✅
-// Learn More From W3Schools.com ⭐
