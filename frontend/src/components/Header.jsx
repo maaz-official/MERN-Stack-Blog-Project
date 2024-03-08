@@ -16,15 +16,13 @@ export default function Header() {
     <Navbar className="border-b-2 header">
       {" "}
       <Link
-        to="/"
-        className="flex items-center font-serif text-3xl font-bold text-gray-800"
+        to='/'
+        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
       >
-        <span className="text-pink-500">L</span>
-        <span>a</span>
-        <span className="text-pink-500">z</span>
-        <span>z</span>
-        <span className="text-pink-500">y</span>
-        <span className="ml-1">Code</span>
+        <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
+          Lazzy
+        </span>
+        Code
       </Link>
       <form>
         <TextInput
@@ -34,13 +32,16 @@ export default function Header() {
           className="hidden lg:inline"
         />
       </form>
-      <Button className="w-12 h-10 lg:hidden" color="gray" pill>
+      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
         <AiOutlineSearch />
       </Button>
-      <div className="flex gap-2 md:order-2">
-        {" "}
-        {/* Updated responsive classes */}
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={()=>dispatch(toggleTheme())}>
+      <div className='flex gap-2 md:order-2'>
+        <Button
+          className='w-12 h-10 hidden sm:inline'
+          color='gray'
+          pill
+          onClick={() => dispatch(toggleTheme())}
+        >
           {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
         {currentUser ? (
@@ -48,22 +49,24 @@ export default function Header() {
             arrowIcon={false}
             inline
             label={
-              <Avatar alt="user" img={currentUser.profilePicture} rounded />
+              <Avatar alt='user' img={currentUser.profilePicture} rounded />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">@{currentUser.username}</span>
-              <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+              <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>
+                {currentUser.email}
+              </span>
             </Dropdown.Header>
             <Link to={'/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign Out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Link to="/login">
-            <Button gradientDuoTone="purpleToBlue" outline>
+          <Link to='/login'>
+            <Button gradientDuoTone='purpleToBlue' outline>
               Sign In
             </Button>
           </Link>
@@ -71,44 +74,14 @@ export default function Header() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        {" "}
-        {/* Collapsible Navbar section */}
-        <Navbar.Link active={path === "/"} as={"div"} className="relative">
-          <Link
-            to="/"
-            className="block py-2 px-4 text-gray-800 hover:text-blue-600 transition duration-300"
-          >
-            Home
-          </Link>
-          {path === "/" && (
-            <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600"></div>
-          )}
+        <Navbar.Link active={path === '/'} as={'div'}>
+          <Link to='/'>Home</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/about"} as={"div"} className="relative">
-          <Link
-            to="/about"
-            className="block py-2 px-4 text-gray-800 hover:text-blue-600 transition duration-300"
-          >
-            About
-          </Link>
-          {path === "/about" && (
-            <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600"></div>
-          )}
+        <Navbar.Link active={path === '/about'} as={'div'}>
+          <Link to='/about'>About</Link>
         </Navbar.Link>
-        <Navbar.Link
-          active={path === "/projects"}
-          as={"div"}
-          className="relative"
-        >
-          <Link
-            to="/projects"
-            className="block py-2 px-4 text-gray-800 hover:text-blue-600 transition duration-300"
-          >
-            Projects
-          </Link>
-          {path === "/projects" && (
-            <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600"></div>
-          )}
+        <Navbar.Link active={path === '/projects'} as={'div'}>
+          <Link to='/projects'>Projects</Link>
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
