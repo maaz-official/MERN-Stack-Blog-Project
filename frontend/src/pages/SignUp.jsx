@@ -33,7 +33,7 @@ const SignUp = () => {
         throw new Error(data.message);
       }
       console.log("Signup successful");
-      navigate("/signin"); // Redirect to sign-in page
+      navigate("/login"); // Redirect to sign-in page
     } catch (error) {
       console.error("Error:", error);
       setErrorMessage(error.message);
