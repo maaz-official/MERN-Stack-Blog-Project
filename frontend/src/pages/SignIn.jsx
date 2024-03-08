@@ -4,6 +4,7 @@ import { Alert, Button } from "flowbite-react"; // Assuming you're using Flowbit
 import logo from "../assets/Logo/logo.png"; // Importing the logo image
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest, loginSuccess, loginFailure } from '../redux/user/userSlice.js';
+import { OAuth } from '../components/OAuth';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -129,6 +130,7 @@ const SignIn = () => {
               "Sign In"
             )}
           </Button>
+          <OAuth />
           <div className="text-center">
             <span className="text-gray-600">Don't have an account?</span>
             <Link to="/signup" className="text-blue-500 ml-1">

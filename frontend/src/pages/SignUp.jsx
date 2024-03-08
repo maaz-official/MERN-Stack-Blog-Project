@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button } from "flowbite-react"; // Assuming you're using Flowbite for styling
 import logo from "../assets/Logo/logo.png"; // Importing the logo image
+import { OAuth } from '../components/OAuth';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -136,6 +137,7 @@ const SignUp = () => {
               "Sign Up"
             )}
           </Button>
+          <OAuth />
           <div className="text-center">
             <span className="text-gray-600">Already have an account?</span>
             <Link to="/login" className="text-blue-500 ml-1">
