@@ -4,26 +4,28 @@ import DashSidebar from "../components/DashSidebar";
 import DashProfile from "../components/DashProfile";
 
 const Dashboard = () => {
-  const  location = useLocation();
+  const location = useLocation();
   const [tab, setTab] = useState('');
+
   useEffect(() => {
-    const urlParams  = new URLSearchParams(location.search);
-    const tabFormUrl = urlParams.get('tab')
-    if(tabFormUrl){
-      setTab(tabFormUrl);
+    const urlParams = new URLSearchParams(location.search);
+    const tabFromUrl = urlParams.get('tab');
+    if(tabFromUrl){
+      setTab(tabFromUrl);
     }
   }, [location.search]);
+
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       <div className="md:w-56">
         {/* SideBar */}
         <DashSidebar />
       </div>
-      {/* Profile .... */}
-      {tab === 'profile' && <DashProfile />}
-      
+      {/* Profile */}
+      { tab === 'profile' && <DashProfile />}
+      {/* Add default behavior or other tabs here */}
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
