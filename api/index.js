@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoute.js';
 import authRoutes from './routes/authRoute.js';
+import cookieParser from "cookie-parser";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -10,6 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json()); // Middleware to parse JSON
+app.use(cookieParser());  // Middleware for handling cookies
 
 mongoose
   .connect(process.env.MONGO_URI)
