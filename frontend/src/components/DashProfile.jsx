@@ -10,6 +10,8 @@ import {
 import { app } from "../firebase"; // Adjust the path according to your project structure
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { updateStart, updateSuccess, updateFailure } from "../redux/user/userSlice.js";
+import { useDispatch } from 'react-redux';
 
 export default function DashProfile() {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -18,8 +20,9 @@ export default function DashProfile() {
   const [imageFileUploadingProgress, setimageFileUploadingProgress] =
     useState(null);
   const [imageFileUploadError, setimageFileUploadError] = useState(null);
+  const [formData, setFormData] = useState({});
   const filePickerRef = useRef();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (imageFile) {
       setImageFileUrl(URL.createObjectURL(imageFile));
@@ -83,10 +86,45 @@ export default function DashProfile() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageFileUrl(downloadURL);
+          setFormData({ ...formData, ProfilePicture: downloadURL });
+          onchange = {handleChange};
         });
       } // This closes the success callback
     ); // This closes the uploadTask.on call
   }; // This closes the uploadImage function
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Check if currentUser exists and has the _id property
+    if (Object.keys(formData).length === 0) {
+      return;
+    }
+  
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(updateFailure(data.message))
+      } else {
+        dispatch(updateSuccess(data));
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+    }
+  };
+  
 
   // Your conditional render for currentUser or currentUser.ProfilePicture must be inside the component function before the return statement.
   if (!currentUser || !currentUser.ProfilePicture) {
@@ -96,7 +134,7 @@ export default function DashProfile() {
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
       <h1 className="my-7 text-center font-semibold text-3xl">Profile</h1>
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="file"
           accept="images/*"
@@ -146,25 +184,26 @@ export default function DashProfile() {
           id="username"
           placeholder="Username"
           defaultValue={currentUser.username}
-          className="rounded-md shadow-md"
+          className="rounded-md shadow-md" onChange={handleChange}
         />
         <TextInput
           type="email"
           id="email"
           placeholder="Email"
           defaultValue={currentUser.email}
-          className="rounded-md shadow-md"
+          className="rounded-md shadow-md" onChange={handleChange}
         />
         <TextInput
           type="password"
           id="password"
           placeholder="Password"
-          className="rounded-md shadow-md"
+          className="rounded-md shadow-md" onChange={handleChange}
         />
         <Button
           type="submit"
           gradientDuoTone="purpleToBlue"
           className="rounded-full"
+          outline
         >
           Update
         </Button>

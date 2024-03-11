@@ -8,7 +8,7 @@ const initialState = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState, // Make sure initialState is defined before it's used
+  initialState,
   reducers: {
       loginRequest(state) {
           state.loading = true;
@@ -22,12 +22,25 @@ export const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       },
+      updateStart(state) { // Updated action name to be consistent
+        state.loading = true;
+        state.error = null;
+      },
+      updateSuccess(state, action) {
+        state.currentUser = action.payload;
+        state.loading = false;
+        state.error = null;
+      },
+      updateFailure(state, action) {
+        state.loading = false;
+        state.error = action.payload;
+      },
       logout(state) {
         state.currentUser = null;
       }
   }
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout } = userSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, logout, updateStart, updateSuccess, updateFailure } = userSlice.actions;
 
 export default userSlice.reducer;
